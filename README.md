@@ -158,6 +158,6 @@ This project is licensed under the MIT License – see the [LICENSE](LICENSE) fi
 ---
 
 **📬 Stay Updated**  
-Follow **[@alxgeraldo](https://github.com/alxgeraldo)** on GitHub.
+Follow **[@alexgeraldo](https://github.com/alexgeraldo)** on GitHub.
 
 ---
