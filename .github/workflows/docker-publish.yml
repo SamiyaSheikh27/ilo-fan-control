@@ -2,12 +2,7 @@ name: Docker Hub Build & Publish
 
 on:
   push:
-    branches: [ "master" ]
     tags: [ 'v*.*.*' ]
-  pull_request:
-    branches: [ "master" ]
-  schedule:
-    - cron: '35 23 * * *'  # Optional nightly build
 
 env:
   REGISTRY: docker.io
