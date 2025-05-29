@@ -11,18 +11,18 @@
 
 ## 📚 Table of Contents
 
-- [🐳 Use with Docker](#use-with-docker)
-- [❓ FAQ](#faq)
-  - [What hardware is supported? 💻](#what-hardware-is-supported)
-  - [Is it safe to expose this dashboard publicly? 🌍](#is-it-safe-to-expose-this-dashboard-publicly)
-  - [Why build this when other dashboards already exist? 🧐](#why-build-this-when-other-dashboards-already-exist)
-  - [Does the interface work on mobile devices? 📱](#does-the-interface-work-on-mobile-devices)
-  - [What control modes are available? ⚙️](#what-control-modes-are-available)
-  - [What features are lacking? 🧩](#what-features-are-lacking)
-- [🧰 Manual Setup](#manual-setup)
-- [🛠️ Contributing](#contributing)
-- [🙏 Acknowledgments](#acknowledgments)
-- [📄 License](#license)
+- [🐳 Use with Docker](#-use-with-docker)
+- [❓ FAQ](#-faq)
+  - [What hardware is supported? 💻](#what-hardware-is-supported-)
+  - [Is it safe to expose this dashboard publicly? 🌍](#is-it-safe-to-expose-this-dashboard-publicly-)
+  - [Why build this when other dashboards already exist? 🧐](#why-build-this-when-other-dashboards-already-exist-)
+  - [Does the interface work on mobile devices? 📱](#does-the-interface-work-on-mobile-devices-)
+  - [What control modes are available? ⚙️](#what-control-modes-are-available-)
+  - [What features are lacking? 🧩](#what-features-are-lacking-)
+- [🧰 Manual Setup](#-manual-setup)
+- [🛠️ Contributing](#-contributing)
+- [🙏 Acknowledgments](#-acknowledgments)
+- [📄 License](#-license)
 
 <br/>
 
