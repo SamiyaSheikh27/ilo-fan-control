@@ -1,0 +1,26 @@
+<script>
+  console.log("Fan speeds updated");
+</script>
+<span class="card-header px-4 pt-3">
+  <h4><i class="fa-solid fa-fan me-3"></i>Fan Speeds</h4>
+</span>
+<div class="card-body">
+  <ul class="list-group list-group-flush">
+    {% for fan in fans %}
+      <li class="list-group-item">
+        {{ fan["verbose-name"] }}:
+        <span class="float-end 
+          {% if fan['speed'] is not none %}
+            {% if fan['speed'] >= 80 %} text-danger
+            {% elif fan['speed'] >= 60 %} text-warning
+            {% else %} text-success
+            {% endif %}
+          {% else %} text-secondary
+          {% endif %}
+        ">
+          {{ fan["speed"] if fan["speed"] is not none else "N/A" }} %
+        </span>
+      </li>
+    {% endfor %}
+  </ul>
+</div>

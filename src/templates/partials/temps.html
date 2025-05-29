@@ -1,0 +1,26 @@
+<script>
+  console.log("Temperatures updated");
+</script>
+<span class="card-header px-4 pt-3">
+  <h4><i class="fa-solid fa-temperature-high me-3"></i>Temperature Sensors</h4>
+</span>
+<div class="card-body">
+  <ul class="list-group list-group-flush">
+    {% for temp in temps %}
+      <li class="list-group-item">
+        {{ temp["verbose-name"] }}:
+        <span class="float-end 
+          {% if temp['value'] is not none %}
+            {% if temp['value'] >= temp['safe-max'] %} text-danger
+            {% elif temp['value'] >= temp['safe-max'] - 15 %} text-warning
+            {% else %} text-success
+            {% endif %}
+          {% else %} text-secondary
+          {% endif %}
+        ">
+          {{ temp["value"] if temp["value"] is not none else "N/A" }} °C
+        </span>
+      </li>
+    {% endfor %}
+  </ul>
+</div>

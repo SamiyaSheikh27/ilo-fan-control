@@ -1,0 +1,30 @@
+<div id="manual-config-container" class="col-12 {% if current_mode != 'manual' %}d-none{% endif %}">
+    <div class="card mb-3 w-100">
+        <span class="card-header px-4 pt-3 mb-2">
+            <p class="mb-2"><span class="card-title h4"><i class="fa-solid fa-gear me-2"></i>Manual Fan Configuration</span><i class="fa-solid fa-circle-info ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Adjust the speed of each fan. Values are in percent."></i></p>
+        </span>
+        <div class="card-body">
+            {% for fan in fans %}
+            <form class="mb-3" hx-post="/fans" hx-trigger="change" hx-include="this" hx-swap="none">
+                <input type="hidden" name="fan_id" value="{{ fan.id }}">
+                <label for="fan{{ fan.id }}" class="form-label">
+                {{ fan.verbose_name }}:
+                <span id="label-fan{{ fan.id }}">{{ fan.speed }}</span>%
+                </label>
+                <input
+                type="range"
+                class="form-range slider-green"
+                id="fan{{ fan.id }}"
+                name="value"
+                min="0"
+                max="100"
+                step="1"
+                value="{{ fan.speed }}"
+                oninput="document.getElementById('label-fan{{ fan.id }}').innerText = this.value"
+                hx-on::after-request="document.getElementById('label-fan{{ fan.id }}').innerText = this.value"
+                />
+            </form>
+            {% endfor %}
+        </div>
+    </div>
+</div>

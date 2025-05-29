@@ -1,0 +1,39 @@
+.list-group-item {
+    transition: background-color 0.2s ease-in-out;
+}
+
+.list-group-item:hover {
+    background-color: #1a1a1a;
+}
+
+.green-accent {
+    color: #10b981;
+    text-decoration: none;
+}
+
+.green-accent:hover {
+    text-decoration: underline;
+}
+
+.btn-outline-green {
+    color: #10b981;
+    border: 1px solid #10b981;
+    background-color: transparent;
+}
+
+.btn-outline-green:hover {
+    background-color: rgba(16, 185, 129, 0.1);
+    border: 1px solid #10b981;
+}
+
+.btn-green-active {
+    background-color: #10b981;
+    color: #fff;
+    border: 1px solid #10b981;
+}
+
+.btn-green-active:hover {
+    background-color: #10b981;
+    color: #fff;
+    border: 1px solid #10b981;
+}

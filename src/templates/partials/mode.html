@@ -1,0 +1,50 @@
+<span class="card-header px-4 pt-3">
+  <p class="mb-2"><span class="card-title h4"><i class="fa-solid fa-sliders me-2 "></i>Mode </span><i class="fa-solid fa-circle-info ms-2"
+    data-bs-toggle="tooltip"
+    data-bs-placement="top"
+    title="Auto: Fans will be controlled through PID and iLO.
+Silent: Fans will run at a minimum defined speed, prioritizing noise reduction.
+Manual: Fans will run at user-defined speeds.">
+  </i></p>
+</span>
+<div class="card-body pt-4">
+  <div class="btn-group-vertical w-100 mb-3" role="group">
+    <button
+      type="button"
+      class="btn w-100 {% if current_mode == 'auto' %}btn-green-active{% else %}btn-outline-green{% endif %}"
+      hx-post="/mode"
+      hx-vals='{"mode": "auto"}'
+      hx-target="closest .card"
+      hx-swap="innerHTML"
+    >
+      Auto
+    </button>
+
+    <button
+      type="button"
+      class="btn w-100 {% if current_mode == 'silent' %}btn-green-active{% else %}btn-outline-green{% endif %}"
+      hx-post="/mode"
+      hx-vals='{"mode": "silent"}'
+      hx-target="closest .card"
+      hx-swap="innerHTML"
+    >
+      Silent
+    </button>
+
+    <button
+      type="button"
+      class="btn w-100 {% if current_mode == 'manual' %}btn-green-active{% else %}btn-outline-green{% endif %}"
+      hx-post="/mode"
+      hx-vals='{"mode": "manual"}'
+      hx-target="closest .card"
+      hx-swap="innerHTML"
+    >
+      Manual
+    </button>
+  </div>
+
+  <div class="text-muted small mt-4">
+    <i class="fa-regular fa-clock me-1"></i>
+    Last update: <span id="last-update">{{ last_update }}</span>
+  </div>
+</div>

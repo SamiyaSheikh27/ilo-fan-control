@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fans Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/bootstrap.min.css') }}">
+    <!--script src="https://kit.fontawesome.com/e4ebeeee5a.js" crossorigin="anonymous"></script-->
+    <script src="{{ url_for('static', path='js/htmx.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/custom.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="icon" href="{{ url_for('static', path='imgs/favicon.ico') }}" type="image/x-icon">
+  </head>
+  <body>
+    <div class="container" id="app-body">
+    <div class="d-flex justify-content-between align-items-center mt-5">
+      <span class="align-middle">
+        <span class="h1"><i class="fa-solid fa-gauge-high me-2"></i> iLO 4 Fan Dashboard </span>
+      </span>
+      <a href="https://{{ ilo_host }}" target="_blank" title="Open iLO Web Interface">
+        <img src="{{ url_for('static', path='imgs/favicon.ico') }}"
+            alt="iLO Web"
+            style="height: 3rem; width: 3rem; object-fit: contain; transition: transform 0.1s ease;"
+            draggable="false"
+            onmousedown="this.style.transform='scale(0.95)';"
+            onmouseup="this.style.transform='scale(1)';">
+      </a>
+    </div>
+    <hr class="border border-2 opacity-100" style="border-color: #10b981 !important;">
+    <div class="row align-items-stretch">
+      <div class="col-sm-5 col-md-4 col-lg-3 d-flex">
+        <div class="card mb-3 w-100"
+            hx-get="/mode-panel"
+            hx-trigger="load, every 3s"
+            hx-swap="innerHTML"
+            hx-target="this">
+          <!-- Mode panel will load here -->
+        </div>
+      </div>
+      <div class="col-12 col-sm d-flex">
+        <div class="card mb-3 w-100" hx-get="/temps" hx-trigger="load, every 3s" hx-swap="innerHTML" hx-target="this">
+          <!-- Temperatures will be dynamically updated -->
+        </div>
+      </div>
+      <div class="col-12 col-lg d-flex">
+        <div class="card mb-3 w-100" hx-get="/fans" hx-trigger="load, every 3s" hx-swap="innerHTML" hx-target="this">
+          <!-- Fan speeds will be dynamically updated -->
+        </div>
+      </div>
+    </div>
+    <style>
+      .slider-green::-webkit-slider-thumb {
+        background-color: #00c97d;
+      }
+
+      .slider-green::-moz-range-thumb {
+        background-color: #00c97d;
+      }
+
+      .slider-green::-ms-thumb {
+        background-color: #00c97d;
+      }
+
+      .slider-green::-webkit-slider-runnable-track {
+        background: linear-gradient(to right, #00c97d 0%, #2c2f3f 100%);
+      }
+
+      .slider-green::-moz-range-track {
+        background: linear-gradient(to right, #00c97d 0%, #2c2f3f 100%);
+      }
+    </style>
+    <div class="row mt-3" id="manual-config-container"
+        hx-get="/manual-config"
+        hx-trigger="load"
+        hx-swap="outerHTML">
+      <!-- Esta row só será preenchida se o modo for "manual" -->
+    </div>
+    <hr class="border border-2 opacity-100" style="border-color: #10b981 !important;">
+    <div class="w-100"><p class="text-center">Made with 99% &#9749; and 1% code by <a class="green-accent" href="https://github.com/alexgeraldo">alexgeraldo</a></p></div>
+    <script src="{{ url_for('static', path='js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', path='js/custom.js') }}"></script>
+  </body>
+</html>
