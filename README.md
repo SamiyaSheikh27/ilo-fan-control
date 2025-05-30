@@ -104,7 +104,7 @@ For development or running the app without Docker:
 1. **Clone the repository:**
 
 ```bash
-git clone https://github.com/yourusername/ilo-fan-control.git
+git clone https://github.com/alexgeraldo/ilo-fan-control.git
 cd ilo-fan-control
 ```
 
